@@ -1,0 +1,59 @@
+# ChangeMap IR-MAD Configuration
+
+# Dataset paths (relative to project root)
+datasets:
+  levir:
+    path: "./levir"
+    splits:
+      test:
+        A: "test/A"
+        B: "test/B"
+        label: "test/label"
+  
+  sysu:
+    path: "./sysu"
+    splits:
+      train:
+        time1: "train/time1"
+        time2: "train/time2"
+        label: "train/label"
+      test:
+        time1: "test/time1"
+        time2: "test/time2"
+        label: "test/label"
+      val:
+        time1: "val/time1"
+        time2: "val/time2"
+        label: "val/label"
+
+# Output paths
+outputs:
+  masks: "./outputs/masks"
+  overlays: "./outputs/overlays"
+  metrics: "./outputs/metrics"
+  exports: "./outputs/exports"
+
+# Algorithm parameters
+algorithms:
+  baseline:
+    use_filter: true
+    filter_type: "gaussian"  # or "median"
+    filter_size: 5
+  
+  cva:
+    threshold_method: "otsu"  # or "fixed"
+    fixed_threshold: 0.3
+  
+  ir_mad:
+    max_iterations: 30
+    convergence_threshold: 1e-6
+    threshold_method: "otsu"  # or "fixed"
+    fixed_threshold: 0.95
+  
+  morphology:
+    kernel_size: 3
+    iterations: 1
+
+# Evaluation
+evaluation:
+  metrics: ["precision", "recall", "f1", "iou"]
